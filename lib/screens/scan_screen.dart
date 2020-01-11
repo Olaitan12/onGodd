@@ -9,7 +9,7 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanScreenState extends State<ScanScreen> {
   GlobalKey qrKey = GlobalKey();
-  var qrText = "",
+  var qrText = "";
   QRViewController controller;
 
   @override

@@ -24,11 +24,13 @@ class ReduxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new PersistorGate(
+      
       persistor: persistor,
       loading: new LoadingScreen(),
       builder: (context) => new StoreProvider<AppState>(
           store: store,
           child: new MaterialApp(
+            debugShowCheckedModeBanner: false,
               title: 'ReduxApp',
               theme: defaultTargetPlatform == TargetPlatform.iOS
                   ? kIOSTheme

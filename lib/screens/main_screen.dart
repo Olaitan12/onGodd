@@ -32,11 +32,7 @@ class MainScreenState extends State<MainScreen> {
     Widget build(BuildContext context) {
         return new Scaffold(
             
-            appBar: new PlatformAdaptiveAppBar(
-                title: new Text(_title),
-                platform: Theme.of(context).platform
-            ),
-            
+           
             bottomNavigationBar: new PlatformAdaptiveBottomBar(
                 currentIndex: _index,
                 onTap: onTap,

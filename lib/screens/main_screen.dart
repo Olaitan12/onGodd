@@ -83,5 +83,5 @@ class TabItem {
 
 const List<TabItem> TabItems = const <TabItem>[
     const TabItem(title: 'Secured Parking', icon: Icons.verified_user),
-    const TabItem(title: 'History', icon: Icons.timeline), 
+    const TabItem(title: 'Organization', icon: Icons.timeline), 
 ];

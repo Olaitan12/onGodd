@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
 
-import 'package:secured_parking/actions/auth_actions.dart';
+import 'package:secured_parking/actions/actions.dart';
 import 'package:secured_parking/models/auth_state.dart';
 
 Reducer<AuthState> authReducer = combineReducers([

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:secured_parking/styles/colors.dart';
-import 'package:secured_parking/actions/auth_actions.dart';
+import 'package:secured_parking/actions/actions.dart';
 import 'package:secured_parking/models/app_state.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -24,9 +24,7 @@ class MainDrawer extends StatelessWidget {
                             color: new Color(0xFFECEFF1),
                         ),
                         child: new Center(
-                            child: new FlutterLogo(
-                            colors: colorStyles['primary'],
-                            size: 54.0,
+                            child: Image(image: AssetImage('assets/logo.png')
                             ),
                         ),
                         ),

@@ -4,7 +4,7 @@ import 'package:redux/redux.dart';
 
 import 'package:secured_parking/presentation/platform_adaptive.dart';
 import 'package:secured_parking/models/app_state.dart';
-import 'package:secured_parking/actions/auth_actions.dart';
+import 'package:secured_parking/actions/actions.dart';
 
 class LoginForm extends StatefulWidget {
     @override
@@ -38,7 +38,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: new Column(
                         children: [
                             new TextFormField(
-                                decoration: new InputDecoration(labelText: 'Username'),
+                                decoration: new InputDecoration(labelText: 'Email Address'),
                                 validator: (val) =>
                                     val.isEmpty ? 'Please enter your username.' : null,
                                 onSaved: (val) => _username = val,

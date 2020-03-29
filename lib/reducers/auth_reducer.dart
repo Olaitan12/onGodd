@@ -6,6 +6,7 @@ import 'package:secured_parking/models/auth_state.dart';
 Reducer<AuthState> authReducer = combineReducers([
     new TypedReducer<AuthState, UserLoginRequest>(userLoginRequestReducer),
     new TypedReducer<AuthState, UserLoginSuccess>(userLoginSuccessReducer),
+    new TypedReducer<AuthState, SelectOrganization>(selectOrganizationReducer),
     new TypedReducer<AuthState, UserLoginFailure>(userLoginFailureReducer),
     new TypedReducer<AuthState, UserLogout>(userLogoutReducer),
 ]);
@@ -22,6 +23,13 @@ AuthState userLoginSuccessReducer(AuthState auth, UserLoginSuccess action) {
         isAuthenticated: true,
         isAuthenticating: false,
         user: action.user
+    );
+}
+AuthState selectOrganizationReducer(AuthState auth, SelectOrganization action) {
+    return auth.copyWith(
+        isAuthenticated: true,
+        isAuthenticating: false,
+        company: action.company
     );
 }
 

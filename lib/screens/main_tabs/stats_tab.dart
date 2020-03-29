@@ -11,40 +11,48 @@ class StatsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, dynamic>(converter: (store) {
-      print('my store ${store.state}');
-      return store.state.auth.user.token;
-    }, builder: (BuildContext context, token) {
+      return (BuildContext context, Map company) =>
+          store.dispatch(selectUserCompany(context, company));
+    }, builder: (BuildContext context, storex) {
       return Container(
         child: FutureBuilder(
           future: getHttp(path: 'getOrgs'),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              return body(snapshot.data);
+              return body(snapshot.data, storex);
             }
-            return CircularProgressIndicator();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       );
     });
   }
 
-  Widget body(data) {
+  Widget body(data, storex) {
     return Container(
       child: Column(
         children: <Widget>[
-        Text('Select Company to Work for!'),
-         Expanded(child: ListView.separated(
+          SizedBox(
+            height: 35,
+          ),
+          Text('Select Company to Work for!', style: TextStyle(
+            fontSize: 20,
+          ),),
+          Expanded(
+              child: ListView.separated(
             itemCount: data.length,
             itemBuilder: (context, index) {
               var org = data[index];
               return ListTile(
-                onTap: (){
-                  selectUserCompany(context, org['id']);
+                onTap: () {
+                  print('clicked org');
+                  storex(context, { "id": org['id'], "name": org['fullname']});
                 },
                 trailing: Icon(Icons.keyboard_arrow_right),
                 title: Text(
                   org['fullname'].toUpperCase(),
-                  
                 ),
                 contentPadding: EdgeInsets.only(left: 30.0, right: 30.0),
               );
@@ -52,8 +60,7 @@ class StatsTab extends StatelessWidget {
             separatorBuilder: (context, index) {
               return Divider();
             },
-          )
-         )
+          ))
         ],
       ),
     );

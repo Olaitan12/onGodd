@@ -10,6 +10,7 @@ class AuthState {
     final bool isAuthenticating;
     final User user;
     final String error;
+    final Map company;
 
     // constructor with default
     AuthState({
@@ -17,6 +18,7 @@ class AuthState {
         this.isAuthenticating = false,
         this.user,
         this.error,
+        this.company
     });
 
     // allows to modify AuthState parameters while cloning previous ones
@@ -24,13 +26,15 @@ class AuthState {
         bool isAuthenticated,
         bool isAuthenticating,
         String error,
-        User user
+        User user,
+        Map company
     }) {
         return new AuthState(
             isAuthenticated: isAuthenticated ?? this.isAuthenticated,
             isAuthenticating: isAuthenticating ?? this.isAuthenticating,
             error: error ?? this.error,
             user: user ?? this.user,
+            company: company ?? this.company,
         );
     }
 
@@ -38,6 +42,7 @@ class AuthState {
         isAuthenticated: json['isAuthenticated'],
         isAuthenticating: json['isAuthenticating'],
         error: json['error'],
+        company: json['company'],
         user: json['user'] == null ? null : new User.fromJSON(json['user']),
     );
 
@@ -46,6 +51,7 @@ class AuthState {
         'isAuthenticating': this.isAuthenticating,
         'user': this.user == null ? null : this.user.toJSON(),
         'error': this.error,
+        'company': this.company,
     };
 
     @override
@@ -55,6 +61,7 @@ class AuthState {
                 isAuthenticating: $isAuthenticating,
                 user: $user,
                 error: $error
+                company: $company
             }''';
     }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:secured_parking/screens/capture.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:secured_parking/models/app_state.dart'; 
 import 'package:secured_parking/screens/main_tabs/capture.dart';
 import 'package:secured_parking/screens/scan_screen.dart';
 
@@ -8,18 +9,36 @@ class NewsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  new StoreConnector<AppState, dynamic>(
+      converter: (store) { 
+      return  store.state.auth.company;
+    }, builder: (BuildContext context, storex) {
+      return Scaffold(
       bottomSheet: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
         ),
-        height:170,
+        height:180,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new SizedBox(
-              height: 10.0,
+          
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: storex != null ? Colors.blue : Colors.red
+              ),
+              padding: EdgeInsets.only(
+                top: 5,
+                left: 20,
+                bottom: 5
+              ),
+              child: new Text(
+              storex != null ? storex['name'].toUpperCase() :  "Please Select an Organization to work for!",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -104,6 +123,8 @@ class NewsTab extends StatelessWidget {
         //   ),
         // ),
       ),
+      );
+    }
     );
   }
 

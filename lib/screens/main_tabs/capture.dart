@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:secured_parking/screens/scan_screen.dart';
+import 'package:secured_parking/styles/http.dart';
 
 List<CameraDescription> cameras;
 
@@ -16,6 +17,7 @@ class CameraState extends State<CameraWidget> {
   List<CameraDescription> cameras;
   CameraController controller;
   bool isReady = false;
+  var theImage;
 
   @override
   void initState() {
@@ -106,73 +108,77 @@ class CameraState extends State<CameraWidget> {
           ],
         ));
   }
-  Widget customCaptureBar (BuildContext context) {
+
+  Widget customCaptureBar(BuildContext context) {
     return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.white,
-                      onPressed: () async {
-                        // Take the Picture in a try / catch block. If anything goes wrong,
-                        // catch the error.
-                        try {
-                          // Ensure that the camera is initialized.
-                          await controller.initialize();
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        FlatButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          color: Colors.white,
+          onPressed: () async {
+            // Take the Picture in a try / catch block. If anything goes wrong,
+            // catch the error.
+            try {
+              // Ensure that the camera is initialized.
+              await controller.initialize();
 
-                          // Construct the path where the image should be saved using the
-                          // pattern package.
-                          final path = join(
-                            // Store the picture in the temp directory.
-                            // Find the temp directory using the `path_provider` plugin.
-                            (await getTemporaryDirectory()).path,
-                            '${DateTime.now()}.png',
-                          );
+              // Construct the path where the image should be saved using the
+              // pattern package.
+              final path = join(
+                // Store the picture in the temp directory.
+                // Find the temp directory using the `path_provider` plugin.
+                (await getTemporaryDirectory()).path,
+                '${DateTime.now()}.png',
+              );
 
-                          // Attempt to take a picture and log where it's been saved.
-                          await controller.takePicture(path);
-                          print('path: $path');
-                        } catch (e) {
-                          // If an error occurs, log the error to the console.
-                          print(e);
-                        }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 35.0),
-                        child: new Text(
-                          'Capture!',
-                          style: TextStyle(fontSize: 15.0, color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    FlatButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      color: Colors.transparent,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ScanScreen(type: "capture"), //capture / scan
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 30.0),
-                        child: new Text(
-                          'Next >>> ',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.black,
-                              decoration: TextDecoration.none),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
+              // Attempt to take a picture and log where it's been saved.
+              await controller.takePicture(path);
+              setState(() {
+                theImage = path;
+              });
+              print('path: $path');
+            } catch (e) {
+              // If an error occurs, log the error to the console.
+              print(e);
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 35.0),
+            child: new Text(
+              'Capture!',
+              style: TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        ),
+        FlatButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0)),
+          color: Colors.transparent,
+          onPressed: () {
+            alert(theImage);
+            print(theImage);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScanScreen(
+                    type: "capture", image: theImage), //capture / scan
+              ),
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+            child: new Text(
+              'Next >>> ',
+              style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                  decoration: TextDecoration.none),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

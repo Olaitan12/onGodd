@@ -7,6 +7,7 @@ import 'package:secured_parking/presentation/platform_adaptive.dart';
 import 'package:secured_parking/screens/loading_screen.dart';
 import 'package:secured_parking/screens/login_screen.dart';
 import 'package:secured_parking/screens/main_screen.dart';
+import 'package:secured_parking/screens/main_tabs/confirm_image.dart';
 import 'package:secured_parking/store/store.dart';
 import 'package:secured_parking/middleware/middleware.dart';
 import 'package:secured_parking/models/app_state.dart';
@@ -44,7 +45,8 @@ class ReduxApp extends StatelessWidget {
                                 ? new MainScreen()
                                 : new LoginScreen()),
                 '/login': (BuildContext context) => new LoginScreen(),
-                '/main': (BuildContext context) => new MainScreen()
+                '/main': (BuildContext context) => new MainScreen(),
+                '/confirm': (BuildContext context) => new ConfirmImage(),
               })),
     );
   }

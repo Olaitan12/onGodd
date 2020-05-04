@@ -11,6 +11,7 @@ getHttp({path}) async {
     Response response = await Dio().get("$url/$path");
     print('data request ${response.request}');
     print('data response $response');
+    alert('Processing... please wait!');
     return response.data;
   } catch (e) {
     print(e);
@@ -21,13 +22,12 @@ postHttp({ path, data}) async {
     print('data $data $url/$path'); 
     Response response = await Dio().post("$url/$path", data: data);
     print('data request ${response.request}');
-    print('data response $response');
-    alert('data response $response');
+    print('data response $response'); 
+    alert('Processing... please wait!');
     return response.data;
     
   } catch (e) { 
-    print('eoorror::  $e');
-    alert('eoorror::  $e');
+    print('eoorror::  $e'); 
   }
 }
 alert(msg) {

@@ -139,6 +139,15 @@ class CameraState extends State<CameraWidget> {
                 theImage = path;
               });
               print('path: $path');
+              alert('image Captured');
+                print(theImage);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScanScreen(
+                        type: "capture", image: theImage), //capture / scan
+                  ),
+                );
             } catch (e) {
               // If an error occurs, log the error to the console.
               print(e);
@@ -156,16 +165,19 @@ class CameraState extends State<CameraWidget> {
           shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(30.0)),
           color: Colors.transparent,
-          onPressed: () {
-            alert(theImage);
+          onPressed: () { 
             print(theImage);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ScanScreen(
-                    type: "capture", image: theImage), //capture / scan
-              ),
-            );
+            if(theImage != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ScanScreen(
+                      type: "capture", image: theImage), //capture / scan
+                ),
+              );
+            }else{
+              alert('Please capture image');
+            }
           },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),

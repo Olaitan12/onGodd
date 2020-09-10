@@ -45,14 +45,15 @@ class StatsTab extends StatelessWidget {
             itemCount: data.length,
             itemBuilder: (context, index) {
               var org = data[index];
+              final name = org['fullname'] ?? '';
               return ListTile(
                 onTap: () {
                   print('clicked org');
-                  storex(context, { "id": org['id'], "name": org['fullname']});
+                  storex(context, { "id": org['id'], "name": name});
                 },
                 trailing: Icon(Icons.keyboard_arrow_right),
                 title: Text(
-                  org['fullname'].toUpperCase(),
+                  name.toUpperCase(),
                 ),
                 contentPadding: EdgeInsets.only(left: 30.0, right: 30.0),
               );

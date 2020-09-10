@@ -1,6 +1,6 @@
 class User {
     final String token;
-    final String id;
+    final dynamic id;
     final String email; 
     final Map company;
 

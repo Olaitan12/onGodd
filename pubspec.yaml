@@ -31,7 +31,7 @@ dependencies:
   redux_persist_flutter: ^0.6.0-rc.1 
   redux_persist: ^0.7.0-rc.2
   camera: 0.5.7+2 
-  path: 1.6.4
+  path: 1.7.0
   path_provider:
   # image_picker:
   qr_code_scanner:
